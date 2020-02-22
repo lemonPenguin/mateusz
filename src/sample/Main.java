@@ -6,12 +6,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Main extends Application {
@@ -133,11 +136,17 @@ public class Main extends Application {
 
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 8; x++) {
-                Rectangle rectangle = new Rectangle(100, 100, Color.LIGHTGRAY);
-                rectangle.setStroke(Color.DARKGREY);
+                Rectangle rectangle = new Rectangle(100, 100, Color.PALEVIOLETRED);
+                rectangle.setStroke(Color.WHITE);
                 root.add(rectangle, x, y);
             }
         }
+
+        Building hospital = new Hospital("Hospital", new Image(new FileInputStream("pics/hospital.png"),100,100,true,true));
+        hospital.setX(1);
+        hospital.setY(1);
+
+        root.add(new ImageView(hospital.getImage()), (int)hospital.getX(),(int)hospital.getY());
 
         Scene scene = new Scene(root, 807, 706);
         stage.setScene(scene);
