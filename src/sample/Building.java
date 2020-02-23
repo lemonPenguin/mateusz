@@ -71,7 +71,7 @@ public class Building {
     public static List<Building> getAllBuildings() throws FileNotFoundException {
         List<Building> buildings = new ArrayList<>();
 
-        buildings.add(new Building("the best hospital in town", 0,0,
+        buildings.add(new Building("the only hospital in town", 0,0,
                 new Image(new FileInputStream("pics/hospital.png"),100,100,true,true)));
 
         buildings.add(new Building("you live here", 0,0,
@@ -86,11 +86,11 @@ public class Building {
         buildings.add(new Building("monopolowy", 0,0,
                 new Image(new FileInputStream("pics/shop.png"),100,100,true,true)));
 
-        buildings.add(new Building("???", 0,0,
-                new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
-
         buildings.add(new Building("st.Mary's church", 0,0,
                 new Image(new FileInputStream("pics/church.png"),100,100,true,true)));
+
+        buildings.add(new Building("???", 0,0,
+                new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
 
         return buildings;
     }

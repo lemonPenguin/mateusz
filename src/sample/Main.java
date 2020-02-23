@@ -146,12 +146,15 @@ public class Main extends Application {
                 if(Math.random()<0.15){
                     if(!tempXD.isEmpty()) {
                         int index = Building.random(tempXD).getId();
-                        root.add(new ImageView(buildings.get(index).getImage()), x, y);
+                        ImageView imageView = new ImageView(buildings.get(index).getImage());
+                        root.add(imageView, x, y);
                         tempXD.remove(buildings.get(index));
                     }
                 }
             }
         }
+
+
 
         Scene scene = new Scene(root, 807, 706);
         stage.setScene(scene);
