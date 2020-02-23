@@ -16,13 +16,16 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public class Main extends Application {
     Stage stage;
+    List<Building> buildings;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
+        buildings = Building.getAllBuildings();
         firstUI();
     }
 
@@ -133,20 +136,22 @@ public class Main extends Application {
 
     private void gameUI() throws FileNotFoundException {
         GridPane root = new GridPane();
+        List<Building> tempXD = buildings;
 
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 8; x++) {
                 Rectangle rectangle = new Rectangle(100, 100, Color.PALEVIOLETRED);
                 rectangle.setStroke(Color.WHITE);
                 root.add(rectangle, x, y);
+                if(Math.random()<0.15){
+                    if(!tempXD.isEmpty()) {
+                        int index = Building.random(tempXD).getId();
+                        root.add(new ImageView(buildings.get(index).getImage()), x, y);
+                        tempXD.remove(buildings.get(index));
+                    }
+                }
             }
         }
-
-        Building hospital = new Hospital("Hospital", new Image(new FileInputStream("pics/hospital.png"),100,100,true,true));
-        hospital.setX(1);
-        hospital.setY(1);
-
-        root.add(new ImageView(hospital.getImage()), (int)hospital.getX(),(int)hospital.getY());
 
         Scene scene = new Scene(root, 807, 706);
         stage.setScene(scene);
