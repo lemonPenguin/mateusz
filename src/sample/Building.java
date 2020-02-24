@@ -9,18 +9,18 @@ import java.util.List;
 
 public class Building {
     String name;
-    private double x;
-    private double y; //x,y = coordinates
+    private int x;
+    private int y; //x,y = coordinates
     private Image image;
     private int id;
-    private int freeId = 0;
+    private static int freeId = 0;
 
-    public Building(String name, double x, double y, Image image) {
+    public Building(String name, int x, int y, Image image) {
         this.name = name;
         this.x = x;
         this.y = y;
         this.image = image;
-        id = freeId;
+        this.id = freeId;
         freeId++;
     }
 
@@ -32,19 +32,19 @@ public class Building {
         this.name = name;
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 

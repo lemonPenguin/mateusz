@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -16,16 +17,42 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
 
 public class Main extends Application {
     Stage stage;
     List<Building> buildings;
+    int mateuszX;
+    int mateuszY;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         buildings = Building.getAllBuildings();
+        List<Building> tempXD = new ArrayList<>(buildings.size());
+        for (int i = 0; i < buildings.size(); i++) {
+            tempXD.add(buildings.get(i));
+        }
+        for (int y = 0; y < 7; y++) {
+            for (int x = 0; x < 8; x++) {
+                if(Math.random()<0.15){
+                    if(!tempXD.isEmpty()) {
+                        int index = Building.random(tempXD).getId();
+                        Building building = buildings.get(index);
+                        building.setX(x);
+                        building.setY(y);
+                        //System.out.println(buildings.size());
+                        tempXD.remove(building);
+                        /*System.out.println(buildings.size());
+                        System.out.println(tempXD.size());*/
+                    }
+                }
+            }
+        }
+        mateuszX = 0;
+        mateuszY = 0;
         firstUI();
     }
 
@@ -136,27 +163,45 @@ public class Main extends Application {
 
     private void gameUI() throws FileNotFoundException {
         GridPane root = new GridPane();
-        List<Building> tempXD = buildings;
 
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 8; x++) {
                 Rectangle rectangle = new Rectangle(100, 100, Color.PALEVIOLETRED);
                 rectangle.setStroke(Color.WHITE);
                 root.add(rectangle, x, y);
-                if(Math.random()<0.15){
-                    if(!tempXD.isEmpty()) {
-                        int index = Building.random(tempXD).getId();
-                        ImageView imageView = new ImageView(buildings.get(index).getImage());
-                        root.add(imageView, x, y);
-                        tempXD.remove(buildings.get(index));
-                    }
-                }
             }
         }
 
+        for (int i = 0; i < buildings.size(); i++) {
+            root.add(new ImageView(buildings.get(i).getImage()),buildings.get(i).getX(),buildings.get(i).getY());
+        }
+
+        Image mateuszIm = new Image(new FileInputStream("pics/mateusz.png"),100,100,true,true);
+        ImageView mateusz = new ImageView(mateuszIm);
+        root.add(mateusz,mateuszX,mateuszY);
 
 
         Scene scene = new Scene(root, 807, 706);
+        scene.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.W && mateuszY > 0){
+                mateuszY--;
+            }
+            else if(event.getCode() == KeyCode.S && mateuszY < 6){
+                mateuszY++;
+            }
+            else if(event.getCode() == KeyCode.A && mateuszX > 0){
+                mateuszX--;
+            }
+            else if(event.getCode() == KeyCode.D && mateuszX < 7){
+                mateuszX++;
+            }
+            try {
+                gameUI();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
         stage.setScene(scene);
         stage.show();
     }
