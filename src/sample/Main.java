@@ -37,7 +37,7 @@ public class Main extends Application {
         }
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 8; x++) {
-                if(Math.random()<0.15){
+                if(Math.random()<0.2){
                     if(!tempXD.isEmpty()) {
                         int index = Building.random(tempXD).getId();
                         Building building = buildings.get(index);
@@ -51,8 +51,8 @@ public class Main extends Application {
                 }
             }
         }
-        mateuszX = 0;
-        mateuszY = 0;
+        mateuszX = buildings.get(1).getX();
+        mateuszY = buildings.get(1).getY();
         firstUI();
     }
 
@@ -166,8 +166,8 @@ public class Main extends Application {
 
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 8; x++) {
-                Rectangle rectangle = new Rectangle(100, 100, Color.PALEVIOLETRED);
-                rectangle.setStroke(Color.WHITE);
+                Rectangle rectangle = new Rectangle(100, 100);
+                rectangle.setFill(Color.DARKGREY);
                 root.add(rectangle, x, y);
             }
         }
@@ -202,6 +202,7 @@ public class Main extends Application {
             }
         });
 
+        scene.setFill(Color.FORESTGREEN);
         stage.setScene(scene);
         stage.show();
     }
