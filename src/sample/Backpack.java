@@ -1,9 +1,9 @@
-package com.entities;
+package sample;
 
 public class Backpack {
 
     private String book;
-    private String purpose; //??
+    private String purpose;
 
     public Backpack(String book, String purpose) {
         this.book = book;

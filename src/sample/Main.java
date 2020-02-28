@@ -30,6 +30,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
+        System.out.println(DBController.getBackpackFromDB().get(0).getBook());
+        //DBController.saveBackpackInDB();
         buildings = Building.getAllBuildings();
         List<Building> tempXD = new ArrayList<>(buildings.size());
         for (int i = 0; i < buildings.size(); i++) {
