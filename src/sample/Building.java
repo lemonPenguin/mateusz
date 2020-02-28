@@ -89,7 +89,7 @@ public class Building {
         buildings.add(new Building("st.Mary's church", 0,0,
                 new Image(new FileInputStream("pics/church.png"),100,100,true,true)));
 
-        buildings.add(new Building("???", 0,0,
+        buildings.add(new Building("Dom Pana Budniaka", 0,0,
                 new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
 
         return buildings;
