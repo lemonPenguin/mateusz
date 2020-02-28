@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
@@ -33,28 +32,30 @@ public class Main extends Application {
         stageGlobal = primaryStage;
 
         buildings = Building.getAllBuildings();
-        List<Building> tempXD = new ArrayList<>(buildings.size());
-        for (int i = 0; i < buildings.size(); i++) {
-            tempXD.add(buildings.get(i));
-        }
-        for (int y = 0; y < 7; y++) {
-            for (int x = 0; x < 8; x++) {
-                if (Math.random() < 0.2) {
-                    if (!tempXD.isEmpty()) {
-                        int index = Building.random(tempXD).getId();
-                        Building building = buildings.get(index);
-                        building.setX(x);
-                        building.setY(y);
-                    }
-                }
-            }
-        }
+
+        setCoor();
+
         mateuszX = buildings.get(1).getX();
         mateuszY = buildings.get(1).getY();
 //        firstUI();
         gameUI();
 //        warningPopUp();
     }
+
+    private void setCoor() {
+        for (int i = 0; i < buildings.size(); i++) {
+            buildings.get(i).setX((int)(Math.random()*8));
+            buildings.get(i).setY((int)(Math.random()*7));
+        }
+        for (int i = 0; i < buildings.size() - 1; i++) {
+            for (int j = i + 1; j < buildings.size(); j++) {
+                if(buildings.get(i).getX() == buildings.get(j).getX() && buildings.get(i).getY() == buildings.get(j).getY()){
+                    setCoor();
+                }
+            }
+        }
+    }
+
 
     public void firstUI() {
         GridPane root = new GridPane();
