@@ -31,7 +31,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         System.out.println(DBController.getBackpackFromDB().get(0).getBook());
-        //DBController.saveBackpackInDB();
+        DBController.saveBackpackInDB(new Backpack("physics", "u"));
         buildings = Building.getAllBuildings();
         List<Building> tempXD = new ArrayList<>(buildings.size());
         for (int i = 0; i < buildings.size(); i++) {
