@@ -74,7 +74,7 @@ public class Building {
         buildings.add(new Building("the only hospital in town", 0,0,
                 new Image(new FileInputStream("pics/hospital.png"),100,100,true,true)));
 
-        buildings.add(new Building("you live here", 0,0,
+        buildings.add(new Building("your house", 0,0,
                 new Image(new FileInputStream("pics/home.png"),100,100,true,true)));
 
         buildings.add(new Building("just police", 0,0,
@@ -89,7 +89,16 @@ public class Building {
         buildings.add(new Building("st.Mary's church", 0,0,
                 new Image(new FileInputStream("pics/church.png"),100,100,true,true)));
 
-        buildings.add(new Building("Dom Pana Budniaka", 0,0,
+        buildings.add(new Building("haunted house", 0,0,
+                new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
+
+        buildings.add(new Building("cmentarz", 0,0,
+                new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
+
+        buildings.add(new Building("kostnica", 0,0,
+                new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
+
+        buildings.add(new Building("jail", 0,0,
                 new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
 
         return buildings;
