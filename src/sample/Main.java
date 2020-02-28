@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,20 +19,19 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.IdentityHashMap;
 import java.util.List;
 
 public class Main extends Application {
-    Stage stage;
+    Stage stageGlobal;
     List<Building> buildings;
     int mateuszX;
     int mateuszY;
+    int flag = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
-        System.out.println(DBController.getBackpackFromDB().get(0).getBook());
-        DBController.saveBackpackInDB(new Backpack("physics", "u"));
+        stageGlobal = primaryStage;
+
         buildings = Building.getAllBuildings();
         List<Building> tempXD = new ArrayList<>(buildings.size());
         for (int i = 0; i < buildings.size(); i++) {
@@ -39,23 +39,21 @@ public class Main extends Application {
         }
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 8; x++) {
-                if(Math.random()<0.2){
-                    if(!tempXD.isEmpty()) {
+                if (Math.random() < 0.2) {
+                    if (!tempXD.isEmpty()) {
                         int index = Building.random(tempXD).getId();
                         Building building = buildings.get(index);
                         building.setX(x);
                         building.setY(y);
-                        //System.out.println(buildings.size());
-                        tempXD.remove(building);
-                        /*System.out.println(buildings.size());
-                        System.out.println(tempXD.size());*/
                     }
                 }
             }
         }
         mateuszX = buildings.get(1).getX();
         mateuszY = buildings.get(1).getY();
-        firstUI();
+//        firstUI();
+        gameUI();
+//        warningPopUp();
     }
 
     public void firstUI() {
@@ -68,9 +66,15 @@ public class Main extends Application {
 
         Button noButton = new Button("no"); // EXTREMELY IMPORTANT DONT DELETE THIS
         noButton.setOnAction(event -> {
-            stage.close();
+            stageGlobal.close();
         });
         root.add(noButton, 1, 2);
+
+        Button whatevenIsThisButton = new Button("What is this I really don't understand");
+        whatevenIsThisButton.setOnAction(event -> {
+            gitgud();
+        });
+        root.add(whatevenIsThisButton, 1, 3);
 
         Button newPlayerButton = new Button("Enter new Player");
         newPlayerButton.setOnAction(event -> {
@@ -79,12 +83,37 @@ public class Main extends Application {
         root.add(newPlayerButton, 2, 2);
         root.add(welcomeText, 1, 1);
 
-        stage.setScene(new Scene(root, 800, 700));
+        stageGlobal.setScene(new Scene(root, 800, 700));
+        stageGlobal.show();
+    }
+
+    private void gitgud() {
+        Stage stage = new Stage();
+        stage.setTitle("Help");
+        GridPane root = new GridPane();
+        root.setAlignment(Pos.CENTER);
+        root.setHgap(10);
+        root.setVgap(20);
+
+        Text gidGudText = new Text("Git Gud");
+
+        Button whywouldYOusaythatBUtton = new Button("That's very disrespectful, let me talk to your supervisor!");
+        whywouldYOusaythatBUtton.setOnAction(event -> {
+            gidGudText.setText("no");
+            stage.setTitle("Just play the game");
+            whywouldYOusaythatBUtton.setText("THIS BUTTON LITERALLY DOES NOTHING");
+
+        });
+
+        root.add(gidGudText, 1, 1);
+        root.add(whywouldYOusaythatBUtton, 2, 2);
+
+        stage.setScene(new Scene(root, 600, 500));
         stage.show();
     }
 
     private void enterNewPlayerUI() {
-        stage.setTitle("Enter New Player Here");
+        stageGlobal.setTitle("Enter New Player Here");
         GridPane root = new GridPane();
         root.setAlignment(Pos.CENTER);
         root.setHgap(10);
@@ -128,42 +157,39 @@ public class Main extends Application {
         root.add(choosePlayerDesiredGenderHereText, 0, 4);
         root.add(genderCombobox, 1, 4);
 
-        stage.setScene(new Scene(root, 800, 700));
-        stage.show();
+        stageGlobal.setScene(new Scene(root, 800, 700));
+        stageGlobal.show();
     }
 
     private void weDontCareYoureNameIsMateuszUI(Player player) {
-        stage.setTitle("Zycie Mateusza");
+        stageGlobal.setTitle("Zycie Mateusza");
         GridPane root = new GridPane();
         root.setAlignment(Pos.CENTER);
         root.setHgap(10);
         root.setVgap(20);
 
-        Text weDontCare = new Text("Unfortunately, we really don't care, your name is Mateusz, your surname is Pszczolek, your age is 17, and your gender is Male, fuck you");
+        Text weDontCare = new Text("Unfortunately, we really don't care, your name is Mateusz, your surname is Pszczolek, your age is 17, and your gender is Male");
 
         Button okFineButton = new Button("Okey, Fine, My name is Mateusz");
         okFineButton.setOnAction(event -> {
-            try {
-                gameUI();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            gameUI();
         });
 
         Button noIDontWantMyNameToBeMateuszButton = new Button("No, I want my character to be " + player.toString());
         noIDontWantMyNameToBeMateuszButton.setOnAction(event -> {
-            stage.close();
+            stageGlobal.close();
         });
 
         root.add(weDontCare, 0, 0);
         root.add(okFineButton, 1, 1);
         root.add(noIDontWantMyNameToBeMateuszButton, 0, 1);
 
-        stage.setScene(new Scene(root, 1000, 300));
-        stage.show();
+        stageGlobal.setScene(new Scene(root, 1000, 300));
+        stageGlobal.show();
     }
 
-    private void gameUI() throws FileNotFoundException {
+    private void gameUI() {
+        stageGlobal.setTitle("Zycie Mateusza");
         GridPane root = new GridPane();
 
         for (int y = 0; y < 7; y++) {
@@ -175,37 +201,129 @@ public class Main extends Application {
         }
 
         for (int i = 0; i < buildings.size(); i++) {
-            root.add(new ImageView(buildings.get(i).getImage()),buildings.get(i).getX(),buildings.get(i).getY());
+            root.add(new ImageView(buildings.get(i).getImage()), buildings.get(i).getX(), buildings.get(i).getY());
         }
 
-        Image mateuszIm = new Image(new FileInputStream("pics/mateusz.png"),100,100,true,true);
+        Image mateuszIm = null;
+        try {
+            mateuszIm = new Image(new FileInputStream("pics/mateusz.png"), 100, 100, true, true);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         ImageView mateusz = new ImageView(mateuszIm);
-        root.add(mateusz,mateuszX,mateuszY);
+        root.add(mateusz, mateuszX, mateuszY);
 
 
         Scene scene = new Scene(root, 807, 706);
         scene.setOnKeyPressed(event -> {
-            if(event.getCode() == KeyCode.W && mateuszY > 0){
+            if ((event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) && mateuszY > 0) {
                 mateuszY--;
-            }
-            else if(event.getCode() == KeyCode.S && mateuszY < 6){
+            } else if ((event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) && mateuszY < 6) {
                 mateuszY++;
-            }
-            else if(event.getCode() == KeyCode.A && mateuszX > 0){
+            } else if ((event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) && mateuszX > 0) {
                 mateuszX--;
-            }
-            else if(event.getCode() == KeyCode.D && mateuszX < 7){
+            } else if ((event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) && mateuszX < 7) {
                 mateuszX++;
+            } else if (event.getCode() == KeyCode.E) {
+                backpackUIorsmthImNotReallySureYet();
+            } else if (event.getCode() == KeyCode.SPACE) {
+                for (int i = 0; i < buildings.size(); i++) {
+                    if (mateuszX == buildings.get(i).getX() && mateuszY == buildings.get(i).getY()) {
+                        if (flag == 0) {
+                            buildingspopup(i);
+                            flag = 1;
+                        } else if (flag == 1) {
+                            warningPopUp();
+                        }
+                    }
+                }
             }
-            try {
-                gameUI();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            gameUI();
         });
 
+
         scene.setFill(Color.FORESTGREEN);
-        stage.setScene(scene);
+        stageGlobal.setScene(scene);
+        stageGlobal.show();
+    }
+
+    private void warningPopUp() {
+        Stage stage = new Stage();
+        stage.setTitle("There has been a problem");
+        GridPane root = new GridPane();
+        root.setAlignment(Pos.CENTER);
+        root.setHgap(10);
+        root.setVgap(20);
+
+        Text text = new Text("Oops! You made a mistake! You didn't save last time, try again! \n" +
+                " (You most likely closed the ''Backpack'' window without saving, try again!) ");
+
+        Button button = new Button("Okey!");
+        button.setOnAction(event -> {
+            flag = 0;
+            stage.close();
+        });
+
+
+        root.add(text, 1, 1);
+        root.add(button, 2, 2);
+
+
+        stage.setScene(new Scene(root, 800, 600));
+        stage.show();
+    }
+
+    private void buildingspopup(int i) {
+        Stage stage = new Stage();
+        stage.setTitle("Popup Test");
+        GridPane root = new GridPane();
+        root.setAlignment(Pos.CENTER);
+        root.setVgap(20);
+        root.setHgap(10);
+
+        Text text = new Text("Test");
+
+
+        Button button = new Button("Ok");
+        button.setOnAction(event -> {
+            flag = 0;
+            stage.close();
+        });
+
+
+        root.add(text, 1, 1);
+        root.add(button, 2, 2);
+
+        stage.setScene(new Scene(root, 700, 800));
+        stage.show();
+    }
+
+    void backpackUIorsmthImNotReallySureYet() {
+        Stage stage = new Stage();
+        GridPane root = new GridPane();
+        root.setAlignment(Pos.BASELINE_LEFT);
+        root.setVgap(20);
+        root.setHgap(10);
+
+        Double money = 00.00;
+
+        Text moneyText = new Text("Mateusz has : " + money.toString() + "$");
+
+
+// TODO: 2/25/2020 fix
+        Backpack backpack = null;
+
+        ListView<List<Item>> BackpackItemsListView = new ListView<>();
+        BackpackItemsListView.getItems().addAll((List<Item>) backpack);
+
+        Text backPackItemsText = new Text("Current Items Mateusz has in his Backpack : ");
+
+        root.add(backPackItemsText, 1, 1);
+        root.add(BackpackItemsListView, 1, 2);
+        root.add(moneyText, 3, 0);
+
+
+        stage.setScene(new Scene(root, 500, 500));
         stage.show();
     }
 

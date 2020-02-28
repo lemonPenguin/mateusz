@@ -1,28 +1,38 @@
 package sample;
 
+import java.util.List;
+
 public class Backpack {
+    List<Item> items;
+    int maxValue;
 
-    private String book;
-    private String purpose;
 
-    public Backpack(String book, String purpose) {
-        this.book = book;
-        this.purpose = purpose;
+    public Backpack(List<Item> items, int maxValue) {
+        this.items = items;
+        this.maxValue = maxValue;
     }
 
-    public String getBook() {
-        return book;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setBook(String book) {
-        this.book = book;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
-    public String getPurpose() {
-        return purpose;
+    public int getMaxValue() {
+        return maxValue;
     }
 
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Backpack{" +
+                "items=" + items +
+                ", maxValue=" + maxValue +
+                '}';
     }
 }
