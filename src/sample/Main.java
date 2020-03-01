@@ -226,7 +226,7 @@ public class Main extends Application {
             } else if ((event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) && mateuszX < 7) {
                 mateuszX++;
             } else if (event.getCode() == KeyCode.E) {
-                backpackUIorsmthImNotReallySureYet();
+                backpackUI();
             } else if (event.getCode() == KeyCode.SPACE) {
                 for (int i = 0; i < buildings.size(); i++) {
                     if (mateuszX == buildings.get(i).getX() && mateuszY == buildings.get(i).getY()) {
@@ -269,7 +269,8 @@ public class Main extends Application {
         root.add(button, 2, 2);
 
 
-        stage.setScene(new Scene(root, 800, 600));
+        stage.setScene(new Scene(root, 700, 600));
+        stage.setAlwaysOnTop(true);
         stage.show();
     }
 
@@ -299,7 +300,7 @@ public class Main extends Application {
         stage.show();
     }
 
-    void backpackUIorsmthImNotReallySureYet() {
+    void backpackUI() {
         Stage stage = new Stage();
         GridPane root = new GridPane();
         root.setAlignment(Pos.BASELINE_LEFT);
@@ -325,6 +326,7 @@ public class Main extends Application {
 
 
         stage.setScene(new Scene(root, 500, 500));
+        stage.setAlwaysOnTop(true);
         stage.show();
     }
 
