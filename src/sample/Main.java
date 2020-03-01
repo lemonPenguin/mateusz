@@ -231,7 +231,7 @@ public class Main extends Application {
                 for (int i = 0; i < buildings.size(); i++) {
                     if (mateuszX == buildings.get(i).getX() && mateuszY == buildings.get(i).getY()) {
                         if (flag == 0) {
-                            buildingspopup(i);
+                            buildingspopup(buildings.get(i));
                             flag = 1;
                         } else if (flag == 1) {
                             warningPopUp();
@@ -273,7 +273,7 @@ public class Main extends Application {
         stage.show();
     }
 
-    private void buildingspopup(int i) {
+    private void buildingspopup(Building building) {
         Stage stage = new Stage();
         stage.setTitle("Popup Test");
         GridPane root = new GridPane();
@@ -281,7 +281,7 @@ public class Main extends Application {
         root.setVgap(20);
         root.setHgap(10);
 
-        Text text = new Text("Test");
+        Text text = new Text("Welcome to " + building.getName());
 
 
         Button button = new Button("Ok");
@@ -294,7 +294,8 @@ public class Main extends Application {
         root.add(text, 1, 1);
         root.add(button, 2, 2);
 
-        stage.setScene(new Scene(root, 700, 800));
+        stage.setScene(new Scene(root, 700, 600));
+        stage.setAlwaysOnTop(true);
         stage.show();
     }
 

@@ -21,8 +21,8 @@ public class DBController {
                 String book = resultSet.getString("book");
                 String purpose = resultSet.getString("purpose");
 
-                Backpack backpack = new Backpack(book, purpose);
-                backpacks.add(backpack);
+                //Backpack backpack = new Backpack(book, purpose);
+                //backpacks.add(backpack);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,8 +37,8 @@ public class DBController {
 
         PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
         try(connection; preparedStatement){
-            preparedStatement.setString(1, backpack.getBook());
-            preparedStatement.setString(2, backpack.getPurpose());
+            //preparedStatement.setString(1, backpack.getBook());
+            //preparedStatement.setString(2, backpack.getPurpose());
             preparedStatement.executeUpdate();
         }
         catch (SQLException e){
