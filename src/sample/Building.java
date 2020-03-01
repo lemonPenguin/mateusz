@@ -93,13 +93,13 @@ public class Building {
                 new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
 
         buildings.add(new Building("cmentarz", 0,0,
-                new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
+                new Image(new FileInputStream("pics/graveyard.png"),100,100,true,true)));
 
         buildings.add(new Building("kostnica", 0,0,
-                new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
+                new Image(new FileInputStream("pics/mortuary.jpg"),100,100,true,true)));
 
         buildings.add(new Building("jail", 0,0,
-                new Image(new FileInputStream("pics/hauntedHouse.png"),100,100,true,true)));
+                new Image(new FileInputStream("pics/jail.png"),100,100,true,true)));
 
         return buildings;
     }

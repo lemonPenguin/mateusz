@@ -215,7 +215,7 @@ public class Main extends Application {
         root.add(mateusz, mateuszX, mateuszY);
 
 
-        Scene scene = new Scene(root, 807, 706);
+        Scene scene = new Scene(root, 800, 700);
         scene.setOnKeyPressed(event -> {
             if ((event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) && mateuszY > 0) {
                 mateuszY--;
@@ -243,7 +243,6 @@ public class Main extends Application {
         });
 
 
-        scene.setFill(Color.FORESTGREEN);
         stageGlobal.setScene(scene);
         stageGlobal.show();
     }
